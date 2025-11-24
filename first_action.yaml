@@ -27,7 +27,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo Hello, world!
+        run: echo Hello from test_branch! Version 1
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 deploy:
