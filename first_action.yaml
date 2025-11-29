@@ -6,7 +6,7 @@ name: CI-First_Workflow
 on:
   # Triggers the workflow on push or pull request events but only for the "test_branch" branch
   push:
-    branches: ["test_branch"]
+    branches: ["test_branches"]
   pull_request:
     branches: ["test_branch"]
 
@@ -27,6 +27,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
+<<<<<<< HEAD
         run: echo Hello from test_branch! Version 1
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -35,6 +36,16 @@ deploy:
   build:
     # The type of runner that the deploy will run on
     runs-on: macos-latest
+=======
+        run: echo Hello from main branch! Production ready
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+job:
+  # This workflow contains a single deploy called "build"
+  build:
+    # The type of runner that the deploy will run on
+    runs-on: windows-latest
+>>>>>>> 05fe92f (main: add conflicting main-branch-specific modifications)
 
     # Steps represent a sequence of tasks that will be executed as part of the deploy
     steps:
@@ -43,10 +54,18 @@ deploy:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
+<<<<<<< HEAD
         run: echo Hello, Gbenga! This is your first Github Action
+=======
+        run: echo Hello, Gbenga! This is your first Github Conflict
+>>>>>>> 05fe92f (main: add conflicting main-branch-specific modifications)
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
+<<<<<<< HEAD
           echo "Deploying Application...",
+=======
+          echo "Deploying Conflict...",
+>>>>>>> 05fe92f (main: add conflicting main-branch-specific modifications)
           echo "Deployment complete".
