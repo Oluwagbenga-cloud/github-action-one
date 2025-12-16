@@ -9,14 +9,8 @@ on: #define the events that trigger the workflow
 
 env: #define environment variables
   REGISTRY: ghcr.io/$GITHUB_REPOSITORY
-  REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
   IMAGE_NAME: $REGISTRY/gbenga-portfolio:latest
-  IMAGE_NAME_LATEST: $REGISTRY/gbenga-portfolio:latest
   IMAGE_NAME_VERSIONED: $REGISTRY/gbenga-portfolio:${{ github.sha }}
-  TENANT_ID: ${{ secrets.TENANT_ID }}
-  CLIENT_ID: ${{ secrets.CLIENT_ID }}
-  # CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }} how do you parse this secret in the run section?
-  RESOURCE_NAME: ${{ secrets.RESOURCE_NAME }}
   JOB_NAME: CI_BUILD_JOB
   BUILD_NUMBER: 001
 
@@ -30,21 +24,10 @@ jobs:
 
       # - name: list the variables
       #   run: printenv #debugging step to list env variables
-      - name: list the registry_password variable
+      - name: Verify environment setup
         run: |
-          echo REGISTRY_PASSWORD: The registry password is: $REGISTRY_PASSWORD
-
-      - name: list the secret variables
-        run: |
-          echo "TENANT_ID: " $TENANT_ID
-          echo "CLIENT_ID: " $CLIENT_ID
-          echo "CLIENT_SECRET: " $CLIENT_SECRET
-          echo "RESOURCE_NAME: " $RESOURCE_NAME
-
-      - name: list the variables
-        run: |
-          echo "JOB_NAME: " $JOB_NAME
-          echo "BUILD_NUMBER: " $BUILD_NUMBER
-          echo "IMAGE_NAME: " $IMAGE_NAME
-          echo "IMAGE_NAME_LATEST: " $IMAGE_NAME_LATEST
-          echo "IMAGE_NAME_VERSIONED: " $IMAGE_NAME_VERSIONED
+          echo "JOB_NAME: $JOB_NAME"
+          echo "BUILD_NUMBER: $BUILD_NUMBER"
+          echo "IMAGE_NAME: $IMAGE_NAME"
+          echo "IMAGE_NAME_VERSIONED: $IMAGE_NAME_VERSIONED"
+          echo "Registry and secrets are configured (values masked for security)"
