@@ -1,0 +1,11 @@
+{
+    "name": "github-action-one",
+    "version": "0.1.0",
+    "description": "A simple app manifest",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "author": "",
+    "license": "MIT"
+}
