@@ -15,22 +15,66 @@ env: #define environment variables
   BUILD_NUMBER: 001
   FILE: ./app.json
   FILE2: ./app.py
-  FILE3: ./requirements.txt
-
+  FILE3: ./app.yaml
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # - name: list the variables
-      #   run: printenv #debugging step to list env variables
-      - name: Verify environment setup
+      - name: Run basic validation tests
+        run: |
+          echo "Running basic validation tests..."
+          test -f $FILE
+          test -f $FILE2
+          test -f $FILE3
+          echo "All required files exists and tests passed."
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: list environment setup
         run: |
           echo "JOB_NAME: $JOB_NAME"
           echo "BUILD_NUMBER: $BUILD_NUMBER"
           echo "IMAGE_NAME: $IMAGE_NAME"
           echo "IMAGE_NAME_VERSIONED: $IMAGE_NAME_VERSIONED"
           echo "Registry and secrets are configured (values masked for security)"
+
+      - name: Read the contents of my files
+        run: |
+          echo "Contents of $FILE:"
+          cat $FILE || true
+          echo
+          echo "Contents of $FILE2:"
+          cat $FILE2 || true
+          echo
+          echo "Contents of $FILE3:"
+          cat $FILE3 || true
+
+      - name: Create Zip file
+        run: |
+          zip myfiles-${{github.run_number}}.zip $FILE $FILE2 $FILE3
+
+      - name: Upload Zip as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: myfiles-zip-${{github.run_number}}
+          path: myfiles-${{github.run_number}}.zip
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Zip artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: myfiles-zip-${{github.run_number}}
