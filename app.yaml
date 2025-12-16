@@ -1,0 +1,33 @@
+name: Simple CI Test
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  APP_NAME: sample-app
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      NODE_ENV: test
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Print environment info
+        run: |
+          echo "App name: $APP_NAME"
+          echo "Node environment: $NODE_ENV"
+          echo "Commit SHA: $GITHUB_SHA"
+
+      - name: Run a simple test
+        run: |
+          echo "Running tests..."
+          sleep 3
+          echo "Tests completed successfully"

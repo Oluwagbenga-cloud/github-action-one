@@ -13,6 +13,9 @@ env: #define environment variables
   IMAGE_NAME_VERSIONED: $REGISTRY/gbenga-portfolio:${{ github.sha }}
   JOB_NAME: CI_BUILD_JOB
   BUILD_NUMBER: 001
+  FILE: ./app.json
+  FILE2: ./app.py
+  FILE3: ./requirements.txt
 
 jobs:
   build:
